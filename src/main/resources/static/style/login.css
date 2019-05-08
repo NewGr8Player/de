@@ -1,0 +1,150 @@
+.bg{
+    width:100%;
+    height:100%;
+    overflow: auto;
+    background: url("../images/bg.jpg") no-repeat center center;
+    position: fixed;
+}
+.wrap{
+    position: absolute;
+    top:16%;
+    left:0;
+    bottom:0;
+    right:0;
+}
+.m-tit{
+    text-align: center;
+    color: #ffffff;
+    font-size:72px;
+    letter-spacing:.2em;
+    font-weight:bolder;
+    margin-bottom:1em;
+}
+
+.m-tit i{
+    display: inline-block;
+    height:1.3em;
+    width:1.3em;
+    background: url("../images/gh.png") no-repeat center center;
+    -webkit-background-size: 96%;
+    background-size: 96%;
+    vertical-align: -.2em;
+    margin-right:.5em;
+}
+.m-tit span{
+    display: inline-block;
+    height:1.2em;
+}
+.m-div{
+    background: #ffffff;
+    width:30%;
+    height:300px;
+    margin:auto;
+}
+.tit1{
+    background: #6085c4 url("../images/bar-bg.png") no-repeat center center;
+    font-size:24px;
+    line-height:.8em;
+    letter-spacing:.2em;
+    color: #ffffff;
+    padding:1em;
+}
+.info-space{
+    margin:1em 6%;
+}
+.m-input{
+    height: 2.8em;
+    line-height:2.8em;
+    width: 100%;
+    font-size:16px;
+    margin-bottom:1em;
+    background: #e7e7ed;
+    border:none;
+    padding-left:3.4em;
+}
+.m-input:focus{
+    border:#6085c4 1px solid;
+}
+.m-div2{
+    position: relative;
+}
+.m-div2 span{
+    position: absolute;
+    top:3px;
+    left:0;
+    height:2.8em;
+    line-height:2.8em;
+    margin-left:4em;
+}
+.m-icon{
+    position: absolute;
+    top:3px;
+    left:0;
+    width:2.8em;
+    height:2.8em;
+    line-height: 2.8em;
+}
+.m-icon::after{
+    content: '';
+    display: inline-block;
+    height:1.8em;
+    margin-left:2.8em;
+    margin-top:.5em;
+    border-right:1px solid #bcbcbc;
+}
+.icon-username{
+    background: url("../images/user.png") no-repeat center center;
+    background-size: 60% 60%;
+}
+.icon-password{
+    background: url("../images/lock.png") no-repeat center center;
+    background-size: 60% 60%;
+}
+.appoint a.btn {
+    display: block;
+    font-size:22px;
+    letter-spacing: 1em;
+    text-indent: 1em;
+    text-align: center;
+    background: linear-gradient(to right,#5d76bd,#6866ba);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr = #5d76bd, endColorstr = #6866ba);
+    padding:.4em;
+    color: #ffffff;
+    font-weight:bolder;
+}
+.m-p,.m-p2{
+    text-align: center;
+    color: #ffffff;
+    margin-top:1em;
+}
+
+.m-p{
+    font-size:12px;
+    margin-top:2.4em;
+}
+.m-p2{
+    font-size:14px;
+}
+.m-p2 span{
+    display: inline-block;
+    margin-right:2em;
+}
+@media screen and (max-width: 1440px){
+    .wrap{
+        top:12%;
+    }
+    .tit{
+        font-size:50px;
+    }
+}
+@media screen and (min-width: 1441px){
+    .m-div{
+        width:24%;
+    }
+    .m-text{
+        position: absolute;
+        bottom:2em;
+        left:0;
+        right:0;
+    }
+}

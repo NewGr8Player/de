@@ -23,13 +23,13 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
-    {
+    /*{
         HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
         hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
         hashMatcher.setStoredCredentialsHexEncoded(false);
         hashMatcher.setHashIterations(1024);
         this.setCredentialsMatcher(hashMatcher);
-    }
+    }*/
 
 
     @Override

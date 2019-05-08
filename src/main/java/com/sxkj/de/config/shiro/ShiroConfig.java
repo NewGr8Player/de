@@ -40,11 +40,14 @@ public class ShiroConfig {
         DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
         //哪些请求可以匿名访问
         chain.addPathDefinition("/login", "anon");
+        chain.addPathDefinition("/static/**", "anon");
+        chain.addPathDefinition("/doc.html", "anon");
+        chain.addPathDefinition("/swagger-ui.html", "anon");
 
         //除了以上的请求外，其它请求都需要登录
         chain.addPathDefinition("/**", "authc");
+
         return chain;
     }
-
 
 }

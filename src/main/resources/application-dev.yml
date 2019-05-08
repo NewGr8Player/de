@@ -8,6 +8,11 @@ spring:
     url: jdbc:mysql://192.168.183.125:3306/jlxf_cs?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: sxkj0818web
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
 springfox:
   documentation:
     swagger:

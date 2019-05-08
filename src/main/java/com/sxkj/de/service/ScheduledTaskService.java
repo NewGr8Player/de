@@ -1,6 +1,5 @@
 package com.sxkj.de.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sxkj.de.bean.ScheduledTask;
 import com.sxkj.de.dao.ScheduledTaskDao;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Slf4j
 @Service
+@Transactional
 public class ScheduledTaskService {
 
     @Autowired
@@ -32,11 +33,13 @@ public class ScheduledTaskService {
      * 可重入锁
      */
     private ReentrantLock lock = new ReentrantLock();
+
     /**
      * 定时任务线程池
      */
     @Autowired
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
+
     /**
      * 所有定时任务存放Map
      * key :任务 key

@@ -16,13 +16,15 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.StringJoiner;
+
 @Getter
 @Setter
 @Accessors(fluent = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-@TableName("scheduled_task")
+@TableName("de_scheduled_task")
 public class ScheduledTask implements Job {
 
     /**
@@ -78,5 +80,17 @@ public class ScheduledTask implements Job {
             e.printStackTrace();
             log.error("异常类型:{},异常信息:{}",e.getClass().getSimpleName(),e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", ScheduledTask.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("taskKey='" + taskKey + "'")
+                .add("taskDesc='" + taskDesc + "'")
+                .add("taskCron='" + taskCron + "'")
+                .add("taskUrl='" + taskUrl + "'")
+                .add("initStartFlag='" + initStartFlag + "'")
+                .toString();
     }
 }

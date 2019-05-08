@@ -1,9 +1,7 @@
-package com.sxkj.de.config;
+package com.sxkj.de.config.scheduled;
 
 import com.sxkj.de.service.ScheduledTaskJob;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;

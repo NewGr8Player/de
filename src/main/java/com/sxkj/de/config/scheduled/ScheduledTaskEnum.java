@@ -1,4 +1,4 @@
-package com.sxkj.de.config;
+package com.sxkj.de.config.scheduled;
 
 import com.sxkj.de.service.ScheduledTaskJob;
 

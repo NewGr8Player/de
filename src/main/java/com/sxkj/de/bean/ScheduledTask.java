@@ -20,7 +20,7 @@ import java.util.StringJoiner;
 
 @Getter
 @Setter
-@Accessors(fluent = true)
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j

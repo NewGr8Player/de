@@ -18,7 +18,7 @@ public class UserService extends ServiceImpl<UserDao, User> {
      * @return
      */
     public User findByUserName(String userName){
-        return baseMapper.selectOne(new QueryWrapper<>(new User().username(userName)));
+        return baseMapper.selectOne(new QueryWrapper<>(new User().setUsername(userName)));
     }
 
 }

@@ -58,7 +58,7 @@ public class ScheduledTaskService {
      * 所有任务列表
      */
     public List<ScheduledTask> taskList() {
-        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(new ScheduledTask().initStartFlag("1")));
+        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(new ScheduledTask().setInitStartFlag("1")));
         if (CollectionUtils.isEmpty(taskBeanList)) {
             return new ArrayList<>();
         }
@@ -86,7 +86,7 @@ public class ScheduledTaskService {
                 return false;
             }
             //根据key数据库获取任务配置信息
-            ScheduledTask scheduledTask = scheduledTaskDao.selectOne(new QueryWrapper<>(new ScheduledTask().taskKey(taskKey)));
+            ScheduledTask scheduledTask = scheduledTaskDao.selectOne(new QueryWrapper<>(new ScheduledTask().setTaskKey(taskKey)));
             //启动任务
             this.doStartTask(scheduledTask);
         } finally {
@@ -137,7 +137,7 @@ public class ScheduledTaskService {
         }
         for (ScheduledTask scheduledTask : ScheduledTaskList) {
             //任务 key
-            String taskKey = scheduledTask.taskKey();
+            String taskKey = scheduledTask.getTaskKey();
             //校验是否已经启动
             if (this.isStart(taskKey)) {
                 continue;
@@ -153,12 +153,12 @@ public class ScheduledTaskService {
      */
     private void doStartTask(ScheduledTask scheduledTask) {
         //任务key
-        String taskKey = scheduledTask.taskKey();
+        String taskKey = scheduledTask.getTaskKey();
         //定时表达式
-        String taskCron = scheduledTask.taskCron();
+        String taskCron = scheduledTask.getTaskCron();
         //获取需要定时调度的接口
         ScheduledTaskJob scheduledTaskJob = scheduledTaskJobMap.get(taskKey);
-        log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduledTask.taskDesc(), taskCron);
+        log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduledTask.getTaskDesc(), taskCron);
         ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(scheduledTaskJob,
                 (triggerContext) -> {
                     CronTrigger cronTrigger = new CronTrigger(taskCron);

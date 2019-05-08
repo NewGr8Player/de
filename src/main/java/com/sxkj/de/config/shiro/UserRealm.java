@@ -4,11 +4,9 @@ import com.sxkj.de.bean.User;
 import com.sxkj.de.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -23,15 +21,6 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
-    /*{
-        HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
-        hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-        hashMatcher.setStoredCredentialsHexEncoded(false);
-        hashMatcher.setHashIterations(1024);
-        this.setCredentialsMatcher(hashMatcher);
-    }*/
-
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         if (principals == null) {
@@ -41,8 +30,8 @@ public class UserRealm extends AuthorizingRealm {
         User user = (User) getAvailablePrincipal(principals);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole(user.role());
-        info.addStringPermission(user.perm());
+        info.addRole(user.getRole());
+        info.addStringPermission(user.getPerm());
         return info;
     }
 
@@ -63,9 +52,9 @@ public class UserRealm extends AuthorizingRealm {
             throw new UnknownAccountException("No account found for admin [" + username + "]");
         }
 
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userDB, userDB.password(), getName());
-        if (userDB.salt() != null) {
-            info.setCredentialsSalt(ByteSource.Util.bytes(userDB.salt()));
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userDB, userDB.getPassword(), getName());
+        if (userDB.getSalt() != null) {
+            info.setCredentialsSalt(ByteSource.Util.bytes(userDB.getSalt()));
         }
 
         return info;

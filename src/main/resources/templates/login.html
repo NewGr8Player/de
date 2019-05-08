@@ -8,32 +8,42 @@
 
 <link rel="stylesheet" type="text/css" th:href="@{/static/style/base.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/style/login.css}"/>
-
+<script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
 </head>
 <body>
 <div class="bg">
-    <div class="wrap">
-        <p class="m-tit"><!--<i></i>--><span>xxxxxxxxxxxxx</span></p>
-        <div class="m-div">
-            <p class="tit1">欢迎登录</p>
-            <div class="info-space">
-                <div class="m-div2">
-                    <input type="text" class="m-input username">
-                    <p class="icon-username m-icon"></p>
-                    <span>请输入用户名</span>
-                </div>
-                <div class="m-div2">
-                    <input type="text" class="m-input password">
-                    <p class="icon-password m-icon"></p>
-                    <span>请输入密码</span>
-                </div>
-                <div class="appoint pointstyle">
-                    <a class="btn" href="#" id="">登录</a>
+    <form id="sForm" th:action="@{/login}" th:method="post">
+        <div class="wrap">
+            <p class="m-tit">
+                <span>XX系统</span>
+            </p>
+            <div class="m-div">
+                <p class="tit1">欢迎登录</p>
+                <div class="info-space">
+                    <div class="m-div2">
+                        <input name="username" type="text" class="m-input username" placeholder="请输入用户名">
+                        <p class="icon-username m-icon"></p>
+                        <span></span>
+                    </div>
+                    <div class="m-div2">
+                        <input name="password" type="password" class="m-input password" placeholder="请输入密码">
+                        <p class="icon-password m-icon"></p>
+                        <span></span>
+                    </div>
+                    <div class="appoint pointstyle">
+                        <a class="btn" href="#" id="login">登录</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-    </div>
+    </form>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('#login').bind('click', function () {
+            $('#sForm').submit();
+        });
+    });
+</script>
 </body>
 </html>

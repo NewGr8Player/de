@@ -3,25 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/style/index.css}"/>
     <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/script/control.js}"></script>
 </head>
 <body>
 <div>
-    jjl
+    <!-- 根据时间段获取为交换的数据或默认所有未交换的数据上传给国家   -->
+    <form id="sc">
+        <input type="submit" value="上传"/>
+        <label>时间:<input type="date"></label>
+        <label>至:<input type="date"></label>
+    </form>
+
+    <form id="xz">
+        <input type="submit" value="下载"/>
+    </form>
+
+    <form id="sddr">
+        <input type="submit" value="导入数据"/>
+        <label>路径:<input id="path" type="text" name="path" size="30"></label>
+    </form>
+
+    <!--  定时任务开关  -->
+    <form id="taskCheck">
+        <label>
+            是否开启智能交换：
+        </label>
+
+    </form>
+
+    <input type="file" accept="text/plain" onchange="openFile(event)"><br>
+    <div id="output"></div>
+
+    <div>
+        近七天上传dat文件成功数量：
+        <span th:text="${sendSuccessNumList}"></span>
+        <table id="sendSuccessNum">
+
+        </table>
+        近七天上传dat文件成功数量：
+        <span th:text="${sendErrorNumList}"></span>
+        <table id="sendErrorNum">
+
+        </table>
+    </div>
+    <div>
+        日志展示：
+    </div>
 </div>
 <script>
     $(function () {
-        //初始化iframe页面高、宽
-        $(".m-right iframe").width($(window).width()-240);
-        $(".m-right iframe").height($(window).height()-87);
 
-        $(".m-left .nav-a").click(function (res){
-            url = $(res.target).attr("data_url");
-            $(".m-right iframe").attr('src',url);
-        });
     })
+    var openFile = function (event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            if (reader.result) {
+                //显示文件内容
+                $("#output").html(reader.result);
+            }
+        };
+        reader.readAsText(input.files[0]);
+    };
 </script>
 </body>
 </html>

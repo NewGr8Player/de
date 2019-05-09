@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/style/index.css}"/>
     <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/script/index.js}"></script>
 </head>
 <body>
@@ -22,7 +24,7 @@
                 <a href="javascript:void(0);" class="nav-a" >统计分析</a>
             </li>
             <li class="nav-li">
-                <a href="javascript:void(0);" class="nav-a">接口文档</a>
+                <a id="doc" href="javascript:void(0);" class="nav-a" data_url="http://localhost:8989/doc.html">接口文档</a>
             </li>
             <li class="nav-li">
                 <a href="javascript:void(0);" class="nav-a">行政区划标准管理</a>

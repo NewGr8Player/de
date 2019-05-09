@@ -1,6 +1,7 @@
 package com.sxkj.de.controller;
 
 import com.sxkj.de.bean.User;
+import com.sxkj.de.service.SendInfoService;
 import com.sxkj.de.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.*;
@@ -26,6 +27,10 @@ public class ControlController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SendInfoService sendInfoService;
+
+
     /**
      * 主控面板
      *
@@ -33,7 +38,8 @@ public class ControlController {
      */
     @GetMapping(path = {"/",""})
     public ModelAndView controlPage(ModelAndView modelAndView) {
-        //modelAndView.addObject("user", new User());
+        modelAndView.addObject("sendSuccessNumList", sendInfoService.searchSendSuncessNum());
+        modelAndView.addObject("sendErrorNumList", sendInfoService.searchSendErrorNum());
         modelAndView.setViewName("control");
         return modelAndView;
     }

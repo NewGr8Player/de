@@ -13,7 +13,11 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * 用户鉴权逻辑
+ *
+ * @author NewGr8Player
+ */
 @Slf4j
 @Component("authorizer")
 public class UserRealm extends AuthorizingRealm {

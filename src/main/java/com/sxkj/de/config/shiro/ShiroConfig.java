@@ -9,7 +9,11 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+/**
+ * Shiro配置
+ *
+ * @author NewGr8Player
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -33,6 +37,7 @@ public class ShiroConfig {
     /**
      * 这里统一做鉴权，即判断哪些请求路径需要用户登录，哪些请求路径不需要用户登录。
      * 这里只做鉴权，不做权限控制，因为权限用注解来做。
+     *
      * @return
      */
     @Bean

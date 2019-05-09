@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "name": "spring.task",
+      "type": "com.sxkj.de.config.scheduled.ScheduledTaskProperties",
+      "sourceType": "com.sxkj.de.config.scheduled.ScheduledTaskProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.task.await-termination-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "com.sxkj.de.config.scheduled.ScheduledTaskProperties",
+      "defaultValue": 60
+    },
+    {
+      "name": "spring.task.pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.sxkj.de.config.scheduled.ScheduledTaskProperties",
+      "defaultValue": 20
+    },
+    {
+      "name": "spring.task.thread-name-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.sxkj.de.config.scheduled.ScheduledTaskProperties",
+      "defaultValue": "taskExecutor-"
+    },
+    {
+      "name": "spring.task.wait-for-tasks-to-complete-on-shutdown",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sxkj.de.config.scheduled.ScheduledTaskProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": []
+}

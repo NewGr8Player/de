@@ -10,6 +10,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.Map;
 
+/**
+ * 定时任务线程池配置
+ *
+ * @author NewGr8Player
+ */
 @Slf4j
 @Configuration
 public class ScheduledTaskConfig {

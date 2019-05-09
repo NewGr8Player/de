@@ -13,6 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
+/**
+ * 登录controller
+ *
+ * @author NewGr8Player
+ */
 @Controller
 @RequestMapping("/")
 public class LoginController {
@@ -27,7 +32,7 @@ public class LoginController {
      */
     @GetMapping(path = {"/login"})
     public ModelAndView loginPage(ModelAndView modelAndView) {
-        modelAndView.addObject("user",new User());
+        modelAndView.addObject("user", new User());
         modelAndView.setViewName("login");
         return modelAndView;
     }
@@ -42,7 +47,7 @@ public class LoginController {
     public ModelAndView loginMethod(ModelAndView modelAndView, User user) {
         if (null != user && StringUtils.isNotBlank(user.getUsername()) && StringUtils.isNotBlank(user.getPassword())) {
             User dbUser = userService.findByUserName(user.getUsername());
-            if(null != dbUser && Objects.equals(dbUser.getPassword(),user.getPassword())){
+            if (null != dbUser && Objects.equals(dbUser.getPassword(), user.getPassword())) {
                 modelAndView.setViewName("index");
                 modelAndView.addObject("user", dbUser);
             } else {

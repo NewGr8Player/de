@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 定时任务枚举值
  * 注：key 需要与数据库保持一致
+ *
+ * @author NewGr8Player
  */
 public enum ScheduledTaskEnum {
 

@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+/**
+ * 用户Bean
+ *
+ * @author NewGr8player
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

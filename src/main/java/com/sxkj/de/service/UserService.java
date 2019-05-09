@@ -7,6 +7,11 @@ import com.sxkj.de.dao.UserDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 用户Service
+ *
+ * @author NewGr8Player
+ */
 @Service
 @Transactional(readOnly = true)
 public class UserService extends ServiceImpl<UserDao, User> {
@@ -17,7 +22,7 @@ public class UserService extends ServiceImpl<UserDao, User> {
      * @param userName 用户名
      * @return
      */
-    public User findByUserName(String userName){
+    public User findByUserName(String userName) {
         return baseMapper.selectOne(new QueryWrapper<>(new User().setUsername(userName)));
     }
 

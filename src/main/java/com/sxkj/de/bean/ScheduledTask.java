@@ -18,6 +18,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.StringJoiner;
 
+/**
+ * 定时任务Bean
+ *
+ * @author NewGr8Player
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

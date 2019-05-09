@@ -11,8 +11,8 @@
     <groupId>com.sxkj</groupId>
     <artifactId>de</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>de</name>
-    <description>Demo project for Spring Boot</description>
+    <name>jlxfDataExchangeControl</name>
+    <description>信访数据交换平台控制中心</description>
 
     <repositories>
         <repository>

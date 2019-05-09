@@ -1,1 +1,18 @@
-
+spring:
+  application:
+    name: jlxfDataExchangeControl
+  groovy:
+    template:
+      check-template-location: false
+  datasource:
+    url:
+    username:
+    password:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: true
+logging:
+  config: classpath:logback.groovy

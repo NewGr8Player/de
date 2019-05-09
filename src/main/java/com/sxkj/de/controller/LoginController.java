@@ -3,6 +3,9 @@ package com.sxkj.de.controller;
 import com.sxkj.de.bean.User;
 import com.sxkj.de.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +51,8 @@ public class LoginController {
         if (null != user && StringUtils.isNotBlank(user.getUsername()) && StringUtils.isNotBlank(user.getPassword())) {
             User dbUser = userService.findByUserName(user.getUsername());
             if (null != dbUser && Objects.equals(dbUser.getPassword(), user.getPassword())) {
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(new UsernamePasswordToken(dbUser.getUsername(), dbUser.getPassword()));
                 modelAndView.setViewName("index");
                 modelAndView.addObject("user", dbUser);
             } else {

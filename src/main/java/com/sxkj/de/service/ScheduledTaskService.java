@@ -59,8 +59,8 @@ public class ScheduledTaskService {
     /**
      * 所有任务列表
      */
-    public List<ScheduledTask> taskList() {
-        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(new ScheduledTask()));
+    public List<ScheduledTask> taskList(ScheduledTask scheduledTask) {
+        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(scheduledTask));
         if (CollectionUtils.isEmpty(taskBeanList)) {
             taskBeanList = new ArrayList<>();
         }
@@ -74,16 +74,13 @@ public class ScheduledTaskService {
      */
     public Boolean start(String taskKey) {
         log.info(">>>>>> 启动任务 {} 开始 >>>>>>", taskKey);
-        //添加锁放一个线程启动，防止多人启动多次
         lock.lock();
         log.info(">>>>>> 添加任务启动锁完毕");
         try {
-            //校验是否已经启动
             if (this.isStart(taskKey)) {
                 log.info(">>>>>> 当前任务已经启动，无需重复启动！");
                 return false;
             }
-            //校验任务是否存在
             if (!scheduledTaskJobMap.containsKey(taskKey)) {
                 return false;
             }
@@ -132,7 +129,7 @@ public class ScheduledTaskService {
     }
 
     /**
-     * 程序启动时初始化  ==> 启动所有正常状态的任务
+     * 启动ScheduledTaskList中所有任务
      *
      * @param ScheduledTaskList 任务list
      */
@@ -155,12 +152,12 @@ public class ScheduledTaskService {
     }
 
     /**
-     * 查找全部任务
+     * 查找全部运行中任务
      *
      * @return
      */
-    public Map<String, ScheduledTaskJob> findAllTask() {
-        return scheduledTaskJobMap;
+    public Map<String, ScheduledFuture> findAllRunningTask() {
+        return scheduledFutureMap;
     }
 
     /**
@@ -187,7 +184,6 @@ public class ScheduledTaskService {
      * @param taskKey 任务key
      */
     public Boolean isStart(String taskKey) {
-        //校验是否已经启动
         if (scheduledFutureMap.containsKey(taskKey)) {
             if (!scheduledFutureMap.get(taskKey).isCancelled()) {
                 return true;

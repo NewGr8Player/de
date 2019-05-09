@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sxkj.de.service.ScheduledTaskJob;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ import java.util.StringJoiner;
 @AllArgsConstructor
 @Slf4j
 @TableName("de_scheduled_task")
-public class ScheduledTask implements Job {
+public class ScheduledTask implements ScheduledTaskJob {
 
     /**
      * 任务Id
@@ -76,10 +77,9 @@ public class ScheduledTask implements Job {
     }
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void run() {
         try {
-            JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
-            String result = restTemplate.postForEntity(taskUrl, jobDataMap, String.class).getBody();
+            String result = restTemplate.postForEntity(taskUrl, "", String.class).getBody();
             log.info(result);
         } catch (Exception e){
             e.printStackTrace();

@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{/static/style/index.css}"/>
     <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/script/index.js}"></script>
 </head>
 <body>
 <div class="header">
@@ -15,25 +16,33 @@
     <div class="m-left">
         <ul class="nav-ul">
             <li class="nav-li">
-                <a href="" class="nav-a">导航1</a>
+                <a href="javascript:void(0);" class="nav-a" data_url="http://www.baidu.com">主控面板</a>
             </li>
             <li class="nav-li">
-                <a href="" class="nav-a">导航2</a>
+                <a href="javascript:void(0);" class="nav-a">统计分析</a>
             </li>
             <li class="nav-li">
-                <a href="" class="nav-a">导航3</a>
+                <a href="javascript:void(0);" class="nav-a">接口文档</a>
             </li>
             <li class="nav-li">
-                <a href="" class="nav-a">导航4</a>
+                <a href="javascript:void(0);" class="nav-a">行政区划标准管理</a>
             </li>
             <li class="nav-li">
-                <a href="" class="nav-a">导航5</a>
+                <a href="javascript:void(0);" class="nav-a">密码修改</a>
             </li>
         </ul>
     </div>
     <div class="m-right">
-        右侧
+        <iframe src="" style="width: 100%;height: 100%;"></iframe>
     </div>
 </div>
+<script>
+    $(function () {
+        $(".m-left .nav-a").click(function (res){
+            url = $(res.target).attr("data_url");
+            $(".m-right iframe").attr('src',url);
+        });
+    })
+</script>
 </body>
 </html>

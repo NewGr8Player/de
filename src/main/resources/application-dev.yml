@@ -5,7 +5,7 @@ spring:
     template:
       check-template-location: false
   datasource:
-    url: jdbc:mysql://192.168.183.125:3306/jlxf_cs?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://192.168.189.40:3306/jlxf_cs?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: sxkj0818web
   thymeleaf:
@@ -13,5 +13,6 @@ spring:
     suffix: .html
     mode: HTML
     encoding: UTF-8
+    cache: false
 logging:
   config: classpath:logback.groovy

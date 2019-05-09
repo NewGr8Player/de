@@ -27,35 +27,35 @@ public class TaskApi {
     @Autowired
     private ScheduledTaskService scheduledTaskService;
 
-    @ApiOperation(value = "查询所有定时任务(包括未激活)", httpMethod = "GET,POST")
-    @RequestMapping(path = "/searchAllTask", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "查询所有定时任务(包括未激活)", httpMethod = "POST")
+    @RequestMapping(path = "/searchAllTask", method = {RequestMethod.POST})
     public Map<String, ScheduledTaskJob> searchAllTask() {
         return scheduledTaskService.findAllTask();
     }
 
-    @ApiOperation(value = "根据taskKey启动任务", httpMethod = "GET,POST",notes="任务已经启动也会返回false。")
+    @ApiOperation(value = "根据taskKey启动任务", httpMethod = "POST",notes="任务已经启动也会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
-    @RequestMapping(path = "/startByKey", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = "/startByKey", method = { RequestMethod.POST})
     public String startByKey(@Param("taskKey") String taskKey){
         return scheduledTaskService.start(taskKey) ? "启动成功。":"启动失败，请检查任务key是否存在或者任务是否已启动。";
     }
 
-    @ApiOperation(value = "根据taskKey停止任务", httpMethod = "GET,POST",notes="任务不存在会返回false。")
+    @ApiOperation(value = "根据taskKey停止任务", httpMethod = "POST",notes="任务不存在会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
-    @RequestMapping(path = "/stopByKey", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = "/stopByKey", method = { RequestMethod.POST})
     public String stopByKey(@Param("taskKey") String taskKey){
         return scheduledTaskService.stop(taskKey) ? "停止成功。":"停止失败，请检查任务key是否存在或者任务是否已停止。";
     }
 
-    @ApiOperation(value = "根据taskKey重启任务", httpMethod = "GET,POST",notes="任务不存在会返回false。")
+    @ApiOperation(value = "根据taskKey重启任务", httpMethod = "POST",notes="任务不存在会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
-    @RequestMapping(path = "/restartByKey", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = "/restartByKey", method = {RequestMethod.POST})
     public String restartByKey(@Param("taskKey") String taskKey){
         return scheduledTaskService.restart(taskKey) ? "重启成功。":"重启失败，请检查任务key是否存在。";
     }

@@ -73,27 +73,24 @@ public class ScheduledTaskService {
      * 根据任务key 启动任务
      */
     public Boolean start(String taskKey) {
-        log.info(">>>>>> 启动任务 {} 开始 >>>>>>", taskKey);
+        log.info("启动任务:{}", taskKey);
         lock.lock();
-        log.info(">>>>>> 添加任务启动锁完毕");
+        log.info("启动锁,{}", taskKey);
         try {
             if (this.isStart(taskKey)) {
-                log.info(">>>>>> 当前任务已经启动，无需重复启动！");
+                log.info("任务已启动，无需重复启动:{}", taskKey);
                 return false;
             }
             if (!scheduledTaskJobMap.containsKey(taskKey)) {
+                log.info("任务不存在，无法启动:{}", taskKey);
                 return false;
             }
-            //根据key数据库获取任务配置信息
             ScheduledTask scheduledTask = scheduledTaskDao.selectOne(new QueryWrapper<>(new ScheduledTask().setTaskKey(taskKey)));
-            //启动任务
             this.doStartTask(scheduledTask);
         } finally {
-            // 释放锁
             lock.unlock();
-            log.info(">>>>>> 释放任务启动锁完毕");
+            log.info("释放锁,{}",taskKey);
         }
-        log.info(">>>>>> 启动任务 {} 结束 >>>>>>", taskKey);
         return true;
     }
 
@@ -101,17 +98,15 @@ public class ScheduledTaskService {
      * 根据 key 停止任务
      */
     public Boolean stop(String taskKey) {
-        log.info(">>>>>> 进入停止任务 {}  >>>>>>", taskKey);
+        log.info("期望停止任务:{}", taskKey);
         //当前任务实例是否存在
         boolean taskStartFlag = scheduledFutureMap.containsKey(taskKey);
-        log.info(">>>>>> 当前任务实例是否存在 {}", taskStartFlag);
+        log.info("任务:{},存在:{}", taskKey, taskStartFlag);
         if (taskStartFlag) {
-            //获取任务实例
             ScheduledFuture scheduledFuture = scheduledFutureMap.get(taskKey);
-            //关闭实例
             scheduledFuture.cancel(true);
         }
-        log.info(">>>>>> 结束停止任务 {}  >>>>>>", taskKey);
+        log.info("停止任务结果:{}", taskKey);
         return taskStartFlag;
     }
 
@@ -121,10 +116,8 @@ public class ScheduledTaskService {
      * @param taskKey 任务key
      */
     public Boolean restart(String taskKey) {
-        log.info(">>>>>> 进入重启任务 {}  >>>>>>", taskKey);
-        //先停止
+        log.info("重启任务:{}", taskKey);
         this.stop(taskKey);
-        //再启动
         return this.start(taskKey);
     }
 
@@ -133,22 +126,19 @@ public class ScheduledTaskService {
      *
      * @param ScheduledTaskList 任务list
      */
-    public void initAllTask(List<ScheduledTask> ScheduledTaskList) {
-        log.info("程序启动 ==> 初始化所有任务开始 ！size={}", ScheduledTaskList.size());
+    public void startTaskList(List<ScheduledTask> ScheduledTaskList) {
+        log.info("启动任务,数量:{}", ScheduledTaskList.size());
         if (CollectionUtils.isEmpty(ScheduledTaskList)) {
             return;
         }
         for (ScheduledTask scheduledTask : ScheduledTaskList) {
-            //任务 key
             String taskKey = scheduledTask.getTaskKey();
-            //校验是否已经启动
             if (this.isStart(taskKey)) {
                 continue;
             }
-            //启动任务
             this.doStartTask(scheduledTask);
         }
-        log.info("程序启动 ==> 初始化所有任务结束 ！size={}", ScheduledTaskList.size());
+        log.info("启动完成。");
     }
 
     /**
@@ -169,7 +159,7 @@ public class ScheduledTaskService {
         String taskKey = scheduledTask.getTaskKey();
         String taskCron = scheduledTask.getTaskCron();
         ScheduledTaskJob scheduledTaskJob = scheduledTaskJobMap.get(taskKey);
-        log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduledTask.getTaskDesc(), taskCron);
+        log.info("任务[Key:{}]({}),cron={}", scheduledTask.getTaskKey(), scheduledTask.getTaskDesc(), taskCron);
         ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(scheduledTaskJob,
                 (triggerContext) -> {
                     CronTrigger cronTrigger = new CronTrigger(taskCron);
@@ -184,12 +174,21 @@ public class ScheduledTaskService {
      * @param taskKey 任务key
      */
     public Boolean isStart(String taskKey) {
-        if (scheduledFutureMap.containsKey(taskKey)) {
-            if (!scheduledFutureMap.get(taskKey).isCancelled()) {
-                return true;
-            }
-        }
-        return false;
+        return scheduledFutureMap.containsKey(taskKey) && !scheduledFutureMap.get(taskKey).isCancelled();
     }
 
+    /**
+     * 初始化列表
+     */
+    public void init() {
+        List<ScheduledTask> list = taskList(new ScheduledTask());
+        if (!CollectionUtils.isEmpty(list)) {
+            log.info("初始化大小：{}。", list.size());
+            list.forEach(
+                    e -> scheduledTaskJobMap.put(e.getTaskKey(), e)
+            );
+        } else {
+            log.info("初始化大小：0。");
+        }
+    }
 }

@@ -32,6 +32,7 @@ public class TaskApi {
     public List<ScheduledTask> searchAllTask() {
         return scheduledTaskService.taskList(new ScheduledTask());
     }
+
     @ApiOperationSort(101)
     @ApiOperation(value = "查询所有运行中定时任务", httpMethod = "POST")
     @RequestMapping(path = "/searchAllRunningTask", method = {RequestMethod.POST})
@@ -40,48 +41,33 @@ public class TaskApi {
     }
 
     @ApiOperationSort(200)
-    @ApiOperation(value = "根据taskKey启动任务", httpMethod = "POST",notes="任务已经启动也会返回false。")
+    @ApiOperation(value = "根据taskKey启动任务", httpMethod = "POST", notes = "任务已经启动也会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
-    @RequestMapping(path = "/startByKey", method = { RequestMethod.POST})
-    public String startByKey(@Param("taskKey") String taskKey){
-        return scheduledTaskService.start(taskKey) ? "启动成功。":"启动失败，请检查任务key是否存在或者任务是否已启动。";
+    @RequestMapping(path = "/startByKey", method = {RequestMethod.POST})
+    public String startByKey(@Param("taskKey") String taskKey) {
+        return scheduledTaskService.start(taskKey) ? "启动成功。" : "启动失败，请检查任务key是否存在或者任务是否已启动。";
     }
 
     @ApiOperationSort(300)
-    @ApiOperation(value = "根据taskKey停止任务", httpMethod = "POST",notes="任务不存在会返回false。")
+    @ApiOperation(value = "根据taskKey停止任务", httpMethod = "POST", notes = "任务不存在会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
-    @RequestMapping(path = "/stopByKey", method = { RequestMethod.POST})
-    public String stopByKey(@Param("taskKey") String taskKey){
-        return scheduledTaskService.stop(taskKey) ? "停止成功。":"停止失败，请检查任务key是否存在或者任务是否已停止。";
+    @RequestMapping(path = "/stopByKey", method = {RequestMethod.POST})
+    public String stopByKey(@Param("taskKey") String taskKey) {
+        return scheduledTaskService.stop(taskKey) ? "停止成功。" : "停止失败，请检查任务key是否存在或者任务是否已停止。";
     }
 
     @ApiOperationSort(400)
-    @ApiOperation(value = "根据taskKey重启任务", httpMethod = "POST",notes="任务不存在会返回false。")
+    @ApiOperation(value = "根据taskKey重启任务", httpMethod = "POST", notes = "任务不存在会返回false。")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "taskKey", value = "任务Key", paramType = "query", dataType = "String", example = "taskKey01")
     )
     @RequestMapping(path = "/restartByKey", method = {RequestMethod.POST})
-    public String restartByKey(@Param("taskKey") String taskKey){
-        return scheduledTaskService.restart(taskKey) ? "重启成功。":"重启失败，请检查任务key是否存在。";
-    }
-
-    @ApiOperationSort(500)
-    @ApiOperation(value = "初始化任务", httpMethod = "POST",notes="任务不存在会返回false。")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "scheduledTask", value = "任务条件", paramType = "query", dataType = "ScheduledTask", example = "taskKey01")
-    )
-    @RequestMapping(path = "/init", method = {RequestMethod.POST})
-    public String init(@Param("scheduledTask") ScheduledTask scheduledTask){
-        try{
-            scheduledTaskService.initAllTask(scheduledTaskService.taskList(scheduledTask));
-            return "初始化成功。";
-        } catch (Exception e){
-            return e.getMessage();
-        }
+    public String restartByKey(@Param("taskKey") String taskKey) {
+        return scheduledTaskService.restart(taskKey) ? "重启成功。" : "重启失败，请检查任务key是否存在。";
     }
 
 }

@@ -58,6 +58,12 @@ public class ScheduledTask implements ScheduledTaskJob {
     private String taskCron;
 
     /**
+     * httpMethod(Get/Post)
+     */
+    @TableField
+    private String httpMethod;
+
+    /**
      * 任务访问的Url
      */
     @TableField
@@ -79,11 +85,22 @@ public class ScheduledTask implements ScheduledTaskJob {
     @Override
     public void run() {
         try {
-            String result = restTemplate.postForEntity(taskUrl, "", String.class).getBody();
-            log.info(result);
-        } catch (Exception e){
+            String result;
+            switch (httpMethod.toUpperCase()) {
+                case "POST":
+                    result = restTemplate.postForObject(taskUrl, "", String.class);
+                    break;
+                case "GET":
+                    result = restTemplate.getForObject(taskUrl, String.class);
+                    break;
+                default:
+                    result = "Failed";
+                    log.error("Unsupported http method,source:{}", this);
+            }
+            log.info("Request:{},Result:{}", this, result);
+        } catch (Exception e) {
             e.printStackTrace();
-            log.error("异常类型:{},异常信息:{}",e.getClass().getSimpleName(),e.getMessage());
+            log.error("异常类型:{},异常信息:{}", e.getClass().getSimpleName(), e.getMessage());
         }
     }
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>定时任务列表页<!-- taskList.html --></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <style type="text/css">
+        .active-task{
+            background: #eb7350;
+        }
+    </style>
+</head>
+<body>
+<table class="layui-table">
+    <colgroup>
+        <col width="100">
+        <col width="100">
+        <col width="150">
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>任务编码</th>
+        <th>cron</th>
+        <th>自动初始化</th>
+        <th>访问方式</th>
+        <th>访问链接</th>
+        <th>任务描述</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${taskList}">
+        <td th:text="${task.taskKey}" th:class="${'task-' + task.taskKey}"></td>
+        <td th:text="${task.taskCron}"></td>
+        <td th:text="${task.initStartFlag eq '1' ? '是' : '否'}"></td>
+        <td th:text="${task.httpMethod}"></td>
+        <td th:text="${task.taskUrl}"></td>
+        <td th:text="${task.taskDesc}"></td>
+        <td>
+            <a class="layui-btn layui-btn-normal" th:href="${'javascript:taskStartEvent('+ task.taskKey +')'}">开始</a>
+            <a class="layui-btn layui-btn-danger" th:href="${'javascript:taskStopEvent('+ task.taskKey +')'}">停止</a>
+            <a class="layui-btn layui-btn-warm" th:href="${'javascript:taskRestartEvent('+ task.taskKey +')'}">重启</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+    var basePath = '[[${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()}]]';
+
+    $(function () {
+        $.ajax({
+            url: basePath + '/api/task/searchAllRunningTask'
+            , type: 'POST'
+            , success : function (data) {
+                for(var key in data){
+                    if(!data[key]['cancel'] && !data[key]['done']){
+                        $('.task-' + key).parent().addClass('active-task');
+                    }
+                }
+            }
+        });
+    });
+
+    function taskStartEvent(taskKey){
+        console.log(taskKey);
+    }
+
+    function taskStopEvent(taskKey){
+        console.log(taskKey);
+    }
+
+    function taskRestartEvent(taskKey){
+        console.log(taskKey);
+    }
+</script>
+</body>
+</html>

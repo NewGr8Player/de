@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/style/index.css}"/>
+    <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/script/control.js}"></script>
+</head>
+<body>
+<div>
+    jjl
+</div>
+<script>
+    $(function () {
+        //初始化iframe页面高、宽
+        $(".m-right iframe").width($(window).width()-240);
+        $(".m-right iframe").height($(window).height()-87);
+
+        $(".m-left .nav-a").click(function (res){
+            url = $(res.target).attr("data_url");
+            $(".m-right iframe").attr('src',url);
+        });
+    })
+</script>
+</body>
+</html>

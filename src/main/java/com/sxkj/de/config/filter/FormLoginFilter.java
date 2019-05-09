@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author NewGr8Player
  */
-public class FormLoginFilter extends PathMatchingFilter {
+/*public class FormLoginFilter extends PathMatchingFilter {
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         Subject subject = SecurityUtils.getSubject();
@@ -26,4 +26,4 @@ public class FormLoginFilter extends PathMatchingFilter {
         }
         return true;
     }
-}
+}*/

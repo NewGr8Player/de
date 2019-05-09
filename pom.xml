@@ -45,7 +45,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springfox.verison>2.9.2</springfox.verison>
-        <swagger-bootstrap-ui.version>1.8.7</swagger-bootstrap-ui.version>
+        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <guava.version>27.1-jre</guava.version>
     </properties>
 

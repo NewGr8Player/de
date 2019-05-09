@@ -48,6 +48,10 @@ public class ShiroConfig {
         chain.addPathDefinition("/static/**", "anon");
         chain.addPathDefinition("/doc.html", "anon");
         chain.addPathDefinition("/swagger-ui.html", "anon");
+        chain.addPathDefinition("/webjars/**", "anon");
+        chain.addPathDefinition("/swagger-resources/**", "anon");
+        chain.addPathDefinition("/v2/api-docs/**", "anon");
+        chain.addPathDefinition("/v2/api-docs-ext/**", "anon");
 
         //除了以上的请求外，其它请求都需要登录
         chain.addPathDefinition("/**", "authc");

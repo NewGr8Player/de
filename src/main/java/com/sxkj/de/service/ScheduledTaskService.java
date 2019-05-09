@@ -58,11 +58,11 @@ public class ScheduledTaskService {
      * 所有任务列表
      */
     public List<ScheduledTask> taskList() {
-        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(new ScheduledTask().setInitStartFlag("1")));
+        List<ScheduledTask> taskBeanList = scheduledTaskDao.selectList(new QueryWrapper<>(new ScheduledTask()));
         if (CollectionUtils.isEmpty(taskBeanList)) {
-            return new ArrayList<>();
+            taskBeanList = new ArrayList<>();
         }
-
+        log.info("初始化任务数量：{}", taskBeanList.size());
         return taskBeanList;
     }
 
@@ -118,6 +118,8 @@ public class ScheduledTaskService {
 
     /**
      * 根据任务key 重启任务
+     *
+     * @param taskKey 任务key
      */
     public Boolean restart(String taskKey) {
         log.info(">>>>>> 进入重启任务 {}  >>>>>>", taskKey);
@@ -129,6 +131,8 @@ public class ScheduledTaskService {
 
     /**
      * 程序启动时初始化  ==> 启动所有正常状态的任务
+     *
+     * @param ScheduledTaskList 任务list
      */
     public void initAllTask(List<ScheduledTask> ScheduledTaskList) {
         log.info("程序启动 ==> 初始化所有任务开始 ！size={}", ScheduledTaskList.size());
@@ -149,14 +153,22 @@ public class ScheduledTaskService {
     }
 
     /**
+     * 查找全部任务
+     *
+     * @return
+     */
+    public Map<String, ScheduledTaskJob> findAllTask() {
+        return scheduledTaskJobMap;
+    }
+
+    /**
      * 执行启动任务
+     *
+     * @param scheduledTask 定时任务Bean
      */
     private void doStartTask(ScheduledTask scheduledTask) {
-        //任务key
         String taskKey = scheduledTask.getTaskKey();
-        //定时表达式
         String taskCron = scheduledTask.getTaskCron();
-        //获取需要定时调度的接口
         ScheduledTaskJob scheduledTaskJob = scheduledTaskJobMap.get(taskKey);
         log.info(">>>>>> 任务 [ {} ] ,cron={}", scheduledTask.getTaskDesc(), taskCron);
         ScheduledFuture scheduledFuture = threadPoolTaskScheduler.schedule(scheduledTaskJob,
@@ -164,14 +176,15 @@ public class ScheduledTaskService {
                     CronTrigger cronTrigger = new CronTrigger(taskCron);
                     return cronTrigger.nextExecutionTime(triggerContext);
                 });
-        //将启动的任务放入 map
         scheduledFutureMap.put(taskKey, scheduledFuture);
     }
 
     /**
      * 任务是否已经启动
+     *
+     * @param taskKey 任务key
      */
-    private Boolean isStart(String taskKey) {
+    public Boolean isStart(String taskKey) {
         //校验是否已经启动
         if (scheduledFutureMap.containsKey(taskKey)) {
             if (!scheduledFutureMap.get(taskKey).isCancelled()) {

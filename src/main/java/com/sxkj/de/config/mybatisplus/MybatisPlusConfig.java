@@ -18,13 +18,13 @@ public class MybatisPlusConfig {
      * plus 的性能优化
      * @return
      */
-    @Bean
+    /*@Bean
     public PerformanceInterceptor performanceInterceptor() {
         PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
         performanceInterceptor.setMaxTime(1000);
         performanceInterceptor.setFormat(true);
         return performanceInterceptor;
-    }
+    }*/
 
     /**
      * mybatis-plus分页插件

@@ -3,12 +3,12 @@ package com.sxkj.de.config.scheduled;
 import com.sxkj.de.service.ScheduledTaskJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.Map;
+
 
 /**
  * 定时任务线程池配置

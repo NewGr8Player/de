@@ -1,6 +1,7 @@
 package com.sxkj.de.service;
 
 import com.sxkj.de.DeApplicationTests;
+import com.sxkj.de.bean.ScheduledTask;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +14,7 @@ public class ScheduledTaskServiceTest extends DeApplicationTests {
 
     @Test
     public void taskList() {
-        scheduledTaskService.taskList().stream().forEach(
+        scheduledTaskService.taskList(new ScheduledTask()).stream().forEach(
                 System.out::println
         );
     }

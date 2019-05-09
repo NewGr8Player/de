@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 用户Bean
  *
@@ -39,8 +42,12 @@ public class User {
     private String salt;
 
     @TableField(exist = false)
-    private String role = "role";
-
+    private Set<String> roles = new HashSet<>();    //用户所有角色值，用于shiro做角色权限的判断
     @TableField(exist = false)
-    private String perm = "perm";
+    private Set<String> perms = new HashSet<>();    //用户所有权限值，用于shiro做资源权限的判断
+
+    {
+        roles.add( "role");
+        perms.add("perm");
+    }
 }

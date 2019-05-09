@@ -43,7 +43,16 @@
         $('#login').bind('click', function () {
             $('#sForm').submit();
         });
+        var basePath = '[[${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()}]]';
+        if (window.parent.length > 0) { /* 避免session超时嵌套 */
+            window.parent.location = basePath + '/login.html';
+        }
+        /*var message = $("#message").val();
+        if (!!message) {
+            layer.msg(message, {icon: 2, timeout: 1000, shade: [0.8, '#393D49'], shadeClose: true});
+        }*/
     });
+
 </script>
 </body>
 </html>

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author NewGr8Player
  */
 @Slf4j
-@Component("authorizer")
+//@Component("authorizer")
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
@@ -34,8 +34,8 @@ public class UserRealm extends AuthorizingRealm {
         User user = (User) getAvailablePrincipal(principals);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole(user.getRole());
-        info.addStringPermission(user.getPerm());
+        info.addRoles(user.getRoles());
+        info.addStringPermissions(user.getPerms());
         return info;
     }
 

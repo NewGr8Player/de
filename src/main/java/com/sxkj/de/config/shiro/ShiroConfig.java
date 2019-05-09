@@ -23,11 +23,6 @@ public class ShiroConfig {
     }
 
     @Bean
-    protected CacheManager cacheManager() {
-        return new MemoryConstrainedCacheManager();
-    }
-
-    @Bean
     public static DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
         creator.setUsePrefix(true);

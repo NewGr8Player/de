@@ -13,10 +13,5 @@ spring:
     suffix: .html
     mode: HTML
     encoding: UTF-8
-springfox:
-  documentation:
-    swagger:
-      v2:
-        path: /api-docs
 logging:
   config: classpath:logback.groovy

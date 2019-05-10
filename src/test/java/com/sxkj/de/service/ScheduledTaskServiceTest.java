@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
+/**
+ * 调度任务service单元测试
+ *
+ * @author NewGr8Player
+ */
 public class ScheduledTaskServiceTest extends DeApplicationTests {
 
     @Autowired

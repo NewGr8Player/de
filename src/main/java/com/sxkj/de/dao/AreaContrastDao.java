@@ -1,5 +1,7 @@
 package com.sxkj.de.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sxkj.de.bean.AreaContrast;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface AreaContrastDao {
+public interface AreaContrastDao  extends BaseMapper<AreaContrast> {
 
 }

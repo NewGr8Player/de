@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * 用户Bean
  *
@@ -34,14 +36,14 @@ public class AreaContrast {
     @TableField
     private String name;
     @TableField
-    private String local_code;
+    private String localCode;
     @TableField
-    private String local_name;
+    private String localName;
 
-    @TableField("update_date")
-    private String updateDate;
+    @TableField
+    private Date updateDate;
 
-    @TableField("create_date")
-    private String createDate;
+    @TableField
+    private Date createDate;
 
 }

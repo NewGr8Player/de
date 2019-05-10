@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
+    <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/script/areaContrast.js}"></script>
+</head>
+<body>
+
+<div class="layui-fluid">
+
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <form id="areaContrastForm" class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">标准行政区划名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" placeholder="请输入标准行政区划名称" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">本地行政区划名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="localName" placeholder="请输入本地行政区划名称" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline layui-btn-group">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryAreaContrast">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        查询
+                    </button>
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryAreaContrastReset">
+                        <i class="layui-icon layui-icon-close layuiadmin-button-btn"></i>
+                        重置
+                    </button>
+                    <button id="add" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon layui-icon-add-1 layuiadmin-button-btn"></i>
+                        新增
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="layui-card-body">
+            <table id="areaContrastTable"></table>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var basePath = '[[${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()}]]';
+    $(function () {
+
+
+    });
+</script>
+</body>
+</html>

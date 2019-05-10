@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>定时任务列表页<!-- taskList.html --></title>
+    <title>信访数据交换平台控制中心<!-- taskList.html --></title>
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
     <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/static/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
     <style type="text/css">
-        .active-task{
+        .active-task {
             background: #eb7350;
         }
     </style>
@@ -51,14 +51,18 @@
 </table>
 <script type="text/javascript">
     var basePath = '[[${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()}]]';
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
 
     $(function () {
         $.ajax({
             url: basePath + '/api/task/searchAllRunningTask'
             , type: 'POST'
-            , success : function (data) {
-                for(var key in data){
-                    if(!data[key]['cancel'] && !data[key]['done']){
+            , success: function (data) {
+                for (var key in data) {
+                    if (!data[key]['cancel'] && !data[key]['done']) {
                         $('.task-' + key).parent().addClass('active-task');
                     }
                 }
@@ -66,16 +70,47 @@
         });
     });
 
-    function taskStartEvent(taskKey){
-        console.log(taskKey);
+    function taskStartEvent(taskKey) {
+        $.ajax({
+            url: basePath + '/api/task/startByKey?taskKey=' + taskKey
+            , type: 'POST'
+            , success: function (data) {
+                reload(data);
+            }
+        });
     }
 
-    function taskStopEvent(taskKey){
-        console.log(taskKey);
+    function taskStopEvent(taskKey) {
+        $.ajax({
+            url: basePath + '/api/task/stopByKey?taskKey=' + taskKey
+            , type: 'POST'
+            , success: function (data) {
+                reload(data);
+            }
+        });
     }
 
-    function taskRestartEvent(taskKey){
-        console.log(taskKey);
+    function taskRestartEvent(taskKey) {
+        $.ajax({
+            url: basePath + '/api/task/restartByKey?taskKey=' + taskKey
+            , type: 'POST'
+            , success: function (data) {
+                reload(data);
+            }
+        });
+    }
+
+    function reload(data) {
+        layer.open({
+            content: data
+            , btn: ['确认']
+            , yes: function (index, layero) {
+                location.href = location.href;
+            }
+            , cancel: function () {
+                reload(data);
+            }
+        });
     }
 </script>
 </body>
